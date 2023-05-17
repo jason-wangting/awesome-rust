@@ -1,22 +1,13 @@
-use serde::{Serialize, Deserialize};
-use wasm_bindgen::prelude::*;
+[package]
+name = "functionblock"
+version = "0.1.0"
+edition = "2021"
 
-#[derive(Deserialize)]
-pub struct InputStruct {
-    input1: u32,
-    input2: u32,
-}
-#[derive(Serialize)]
-pub struct OutputStruct {
-    output1: u32,
-    status: String,
-}
-#[wasm_bindgen]
-pub fn run(obj: JsValue) -> JsValue {
-    let InputStruct { input1, input2 } = obj.into_serde().unwrap();
-    let output = OutputStruct {
-        output1: input1 + input2,
-        status: String::from("Good"),
-    };
-    JsValue::from_serde(&output).unwrap()
-}
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib"]
+path = "lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+wasm-bindgen = { version = "0.2", features = ["serde-serialize"] }
