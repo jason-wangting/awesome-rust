@@ -15,7 +15,7 @@ pub struct OutputStruct {
 pub fn run(obj: JsValue) -> JsValue {
     let InputStruct { input1, input2 } = obj.into_serde().unwrap();
     let output = OutputStruct {
-        output1: input1 + input2,
+        output1: input1 + input2 + 2,
         status: String::from("Good"),
     };
     JsValue::from_serde(&output).unwrap()
